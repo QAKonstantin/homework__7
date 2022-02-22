@@ -3,9 +3,9 @@ from page_objects.BasePage import BasePage
 
 
 class MainPage(BasePage):
-    SLIDESHOW = (By.CSS_SELECTOR, "[id='slideshow0']")
-    CAROUSEL = (By.CSS_SELECTOR, "[id='carousel0']")
-    ROW = (By.CSS_SELECTOR, "[class='row']")
+    SLIDESHOW = (By.CSS_SELECTOR, "#slideshow0")
+    CAROUSEL = (By.CSS_SELECTOR, "#carousel0")
+    ROW = (By.CSS_SELECTOR, ".row")
     NAVIGATION_BAR = (By.CSS_SELECTOR, "[class='collapse navbar-collapse navbar-ex1-collapse']")
 
     def check_elements(self):

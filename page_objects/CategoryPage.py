@@ -4,11 +4,11 @@ from page_objects.BasePage import BasePage
 
 
 class CategoryPage(BasePage):
-    SORT_BY = (By.CSS_SELECTOR, "[class='input-group-addon']")
+    SORT_BY = (By.CSS_SELECTOR, ".input-group-addon")
     ICON_LIST = (By.CSS_SELECTOR, "[class='fa fa-th']")
-    PC_BANNER = (By.CSS_SELECTOR, "[class='img-responsive']")
+    PC_BANNER = (By.CSS_SELECTOR, ".img-responsive")
     PHONE_CATEGORY = (By.CSS_SELECTOR, "[class='list-group-item active']")
-    BLOCK_CATEGORY = (By.CSS_SELECTOR, "[id='column-left']")
+    BLOCK_CATEGORY = (By.CSS_SELECTOR, "#column-left")
 
     @allure.step("Move to '{category}'")
     def move_to_categories(self, category, dropdown=''):

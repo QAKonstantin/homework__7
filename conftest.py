@@ -8,13 +8,13 @@ from selenium import webdriver
 
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="chrome")
-    parser.addoption("--url", action="store", default="local")  # 127.0.0.1
+    parser.addoption("--url", action="store", default="local")
     parser.addoption("--drivers", action="store", default=os.path.expanduser("C:/drivers1"))
     parser.addoption("--log_level", action="store", default="DEBUG")
     parser.addoption("--bversion", action="store", default="98.0")
     parser.addoption("--vnc", action="store_true", default=False)
     parser.addoption("--logs", action="store_true", default=False)
-    parser.addoption("--videos", action="store_true", default=True)
+    parser.addoption("--videos", action="store_true", default=False)
 
 
 @pytest.fixture
@@ -35,6 +35,7 @@ def browser(request):
             wd = webdriver.Firefox(executable_path=drivers + "/geckodriver")
         elif browser == "opera":
             wd = webdriver.Opera(executable_path=drivers + "/operadriver")
+        wd.url = "http://192.168.0.100:8081"
         wd.maximize_window()
 
     else:
@@ -71,7 +72,7 @@ def browser(request):
     wd.log_level = log_level
     logger.info("Browser:{}".format(browser, wd.desired_capabilities))
 
-    wd.url = "http://demo.opencart.com"
+
     wd.get(wd.url)
 
     def fin():

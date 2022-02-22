@@ -5,7 +5,7 @@ from page_objects.BasePage import BasePage
 
 class ProductPage(BasePage):
     PRODUCT_DESCRIPTION = (By.CSS_SELECTOR, "div[id='tab-description']")
-    INPUT_QUANTITY = (By.CSS_SELECTOR, "[id='input-quantity']")
+    INPUT_QUANTITY = (By.CSS_SELECTOR, "#input-quantity")
     ACTIVE = (By.CLASS_NAME, "active")
     ADD_TO_CART = (By.ID, "button-cart")
     PRODUCT_NAME = (By.CSS_SELECTOR, "#content > div > div.col-sm-4 > h1")

@@ -1,5 +1,3 @@
-import time
-
 from page_objects.elements.Header import Header
 import allure
 
