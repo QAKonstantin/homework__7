@@ -1,5 +1,3 @@
-import time
-
 from page_objects.AdminPanelPage import AdminPanel
 import os
 import allure

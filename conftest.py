@@ -4,6 +4,7 @@ import datetime
 import random
 import logging
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 
 
 def pytest_addoption(parser):
@@ -30,13 +31,14 @@ def browser(request):
 
     if executor == "local":
         if browser == "chrome":
-            wd = webdriver.Chrome(executable_path=drivers + "/chromedriver")
+            wd = webdriver.Chrome(service=Service(drivers + "/chromedriver"))
         elif browser == "firefox":
-            wd = webdriver.Firefox(executable_path=drivers + "/geckodriver")
+            wd = webdriver.Firefox(service=Service(drivers + "/geckodriver"))
         elif browser == "opera":
-            wd = webdriver.Opera(executable_path=drivers + "/operadriver")
-        wd.url = "http://192.168.0.100:8081"
+            wd = webdriver.Opera(service_args=Service(drivers + "/operadriver"))
+        wd.url = "https://demo.opencart.com"
         wd.maximize_window()
+
 
     else:
         executor_url = f"http://{executor}:4444/wd/hub"
@@ -61,22 +63,20 @@ def browser(request):
 
         wd.maximize_window()
 
+    wd.get(wd.url)
     logger = logging.getLogger('driver')
 
     test_name = request.node.name
 
-    logger.addHandler(logging.FileHandler(f"logs/{test_name}.log"))
+    logger.addHandler(logging.FileHandler(f"logs/{test_name}.log", mode='w'))
     logger.setLevel(level=log_level)
     logger.info("===> Test {} started at {}".format(test_name, datetime.datetime.now()))
     wd.test_name = test_name
     wd.log_level = log_level
-    logger.info("Browser:{}".format(browser, wd.desired_capabilities))
-
-
-    wd.get(wd.url)
+    logger.info("Browser:{}".format(browser, wd.capabilities))
 
     def fin():
-        with open('allure-results/environment.properties', 'w') as f:
+        with open('../allure-results/environment.properties', 'w') as f:
             f.write(f'Browser={browser}\n')
             f.write(f'Browser.Version={version}\n')
             f.write(f'Executor={executor}')

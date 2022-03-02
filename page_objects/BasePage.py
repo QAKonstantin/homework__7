@@ -52,17 +52,18 @@ class BasePage:
 
     @allure.step("Search link text: '{link_text}'")
     def _search_link_text(self, link_text, timeout=2):
-        self.logger.info("Check if link text {} was found".format(link_text))
         try:
+            self.logger.info("Check if link text {} was found".format(link_text))
             return WebDriverWait(self.browser, timeout) \
                 .until(EC.visibility_of_element_located((By.LINK_TEXT, link_text)))
         except TimeoutException:
+            self.logger.warning("Cant find element by link text: {}".format(link_text))
             allure.attach(
                 name=self.browser.session_id,
                 body=self.browser.get_screenshot_as_png(),
                 attachment_type=allure.attachment_type.PNG
             )
-            raise AssertionError(f"Cant find element by link text: {link_text}")
+            raise AssertionError("Cant find element by link text: {}".format(link_text))
 
     @allure.step("Wait text element with text: '{goal}'")
     def _wait_text_element(self, locator, goal, timeout=2):
