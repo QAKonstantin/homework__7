@@ -7,7 +7,7 @@ import allure
 @allure.title("This test add/delete product by Administrator")
 def test_add_delete_product(browser):
     admin = AdminPanel(browser)
-    admin.login_with("user", os.getenv("admin_password"))
+    admin.login_with("user", os.getenv("ADMIN_PASSWORD"))
     admin.add_product(product_name="Test_name", model="Test_model", tag="test")
     admin.delete_product(product_name="Test_name")
 
